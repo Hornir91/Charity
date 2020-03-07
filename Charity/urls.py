@@ -18,9 +18,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from charity_donation.views import DashboardView
+from charity_donation.views import LandingPage, AddDonation, Login, Register
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', DashboardView.as_view(), name='dashboard')
+    path('', LandingPage.as_view(), name='landing-page'),
+    path('add_donation/', AddDonation.as_view(), name='add-donation'),
+    path('login/', Login.as_view(), name='login'),
+    path('register/', Register.as_view(), name='register')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
