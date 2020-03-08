@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views import View
 
+from charity_donation.models import Donation
+
 
 class LandingPage(View):
 
