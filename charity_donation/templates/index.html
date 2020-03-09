@@ -71,7 +71,7 @@
         </div>
       </div>
 
-      <a href="#" class="btn btn--large">Załóż konto</a>
+      <a href="{% url 'register' %}" class="btn btn--large">Załóż konto</a>
     </section>
 
     <section id="about-us" class="about-us">
@@ -105,18 +105,18 @@
               <div class="subtitle">{{ charity.description }}</div>
             </div>
 
-            <div class="col"><div class="text"></div></div>
+            <div class="col"><div class="text">{% for char in charity.categories.all %} {{ char.name }} {% endfor %}</div></div>
           </li>
             {% endif %}
           {% endfor %}
         </ul>
-        <!-- Pagination
+        <!-- Pagination -->
         <ul class="help--slides-pagination">
           <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>
           <li><a href="#" class="btn btn--small btn--without-border" data-page="2">2</a></li>
           <li><a href="#" class="btn btn--small btn--without-border" data-page="3">3</a></li>
         </ul>
-        -->
+
       </div>
 
 
@@ -135,7 +135,7 @@
               <div class="subtitle">{{ charity.description }}</div>
             </div>
 
-            <div class="col"><div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div></div>
+            <div class="col"><div class="text">{% for char in charity.categories.all %} {{ char.name }} {% endfor %}</div></div>
           </li>
             {% endif %}
           {% endfor %}
@@ -168,7 +168,7 @@
           </li>
         </ul>
 
-        <!-- Pagination
+        <!-- Pagination -->
         <ul class="help--slides-pagination">
           <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>
           <li><a href="#" class="btn btn--small btn--without-border" data-page="2">2</a></li>
@@ -176,7 +176,7 @@
           <li><a href="#" class="btn btn--small btn--without-border" data-page="4">4</a></li>
           <li><a href="#" class="btn btn--small btn--without-border" data-page="5">5</a></li>
         </ul>
-        -->
+
       </div>
 
       <!-- SLIDE 3 -->
@@ -187,22 +187,22 @@
             {% if charity.type == '3' %}
           <li>
             <div class="col">
-              <div class="title">Lokalna zbiórka 1</div>
-              <div class="subtitle">Lorem ipsum dolor sit amet consectetur.</div>
+              <div class="title">{{ charity.name }}</div>
+              <div class="subtitle">{{ charity.description }}</div>
             </div>
 
-            <div class="col"><div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div></div>
+            <div class="col"><div class="text">{% for char in charity.categories.all %} {{ char.name }} {% endfor %}</div></div>
           </li>
             {% endif %}
           {% endfor %}
         </ul>
 
-        <!-- Pagination
+        <!-- Pagination -->
         <ul class="help--slides-pagination">
           <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>
           <li><a href="#" class="btn btn--small btn--without-border" data-page="2">2</a></li>
         </ul>
-        -->
+
       </div>
     </section>
 {% endblock %}
