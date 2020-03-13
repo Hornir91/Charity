@@ -1,9 +1,11 @@
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 
-from charity_donation.models import Donation, Institution
+from charity_donation.models import Donation, Institution, Category
 
 
 class LandingPage(View):
@@ -19,16 +21,36 @@ class LandingPage(View):
         return render(request, 'index.html', {'bags_count': bags_count, 'charities': charities, 'char_cnt': char_cnt})
 
 
-class AddDonation(View):
+class AddDonation(LoginRequiredMixin, View):
+    login_url = '/login/#login'
 
     def get(self, request):
-        return render(request, 'form.html')
+        categories = Category.objects.all()
+        return render(request, 'form.html', {'categories': categories})
 
 
 class Login(View):
 
     def get(self, request):
         return render(request, 'login.html')
+
+    def post(self, request):
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        usr = User.objects.get(email=email)
+        user = authenticate(username=usr.username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect(reverse_lazy('landing-page'))
+        else:
+            return redirect(reverse_lazy('register'))
+
+
+class Logout(View):
+
+    def get(self, request):
+        logout(request)
+        return redirect(reverse_lazy('landing-page'))
 
 
 class Register(View):

@@ -18,12 +18,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from charity_donation.views import LandingPage, AddDonation, Login, Register
+from charity_donation.views import LandingPage, AddDonation, Login, Register, Logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', LandingPage.as_view(), name='landing-page'),
     path('add_donation/', AddDonation.as_view(), name='add-donation'),
     path('login/', Login.as_view(), name='login'),
-    path('register/', Register.as_view(), name='register')
+    path('register/', Register.as_view(), name='register'),
+    path('logout/', Logout.as_view(), name='logout'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
