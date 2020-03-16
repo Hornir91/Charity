@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from charity_donation.views import LandingPage, AddDonation, Login, Register, Logout
+from charity_donation.views import LandingPage, AddDonation, Login, Register, Logout, UserProfile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +27,5 @@ urlpatterns = [
     path('login/', Login.as_view(), name='login'),
     path('register/', Register.as_view(), name='register'),
     path('logout/', Logout.as_view(), name='logout'),
+    path('user_profile', UserProfile.as_view(), name='user-profile')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

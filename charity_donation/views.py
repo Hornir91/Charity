@@ -26,7 +26,8 @@ class AddDonation(LoginRequiredMixin, View):
 
     def get(self, request):
         categories = Category.objects.all()
-        return render(request, 'form.html', {'categories': categories})
+        institutions = Institution.objects.all()
+        return render(request, 'form.html', {'categories': categories, 'institutions': institutions})
 
 
 class Login(View):
@@ -66,3 +67,10 @@ class Register(View):
         password2 = request.POST.get('password2')
         o = User.objects.create_user(username=name, email=email, password=password)
         return redirect(reverse_lazy('login'))
+
+
+class UserProfile(View):
+
+    def get(self, request):
+        user = User.objects.get(pk=request.user.id)
+        return render(request, 'user_profile.html', locals())

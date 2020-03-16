@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<section id="user_profile">
+      <div>
+        <ul>
+          <li>
+            <div class="col">
+                <h2>Nick: {{ user.username }}</h2>
+                <h2>Imię: {{ user.first_name }}</h2>
+                <h2>Nazwisko: {{ user.last_name }}</h2>
+                <h2>Email: {{ user.email }}</h2>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+{% endblock %}
