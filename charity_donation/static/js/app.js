@@ -235,6 +235,7 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$step.parentElement.hidden = this.currentStep >= 6;
 
       // TODO: get data from inputs and show them in summary
+
     }
 
     /**
@@ -252,4 +253,29 @@ document.addEventListener("DOMContentLoaded", function() {
   if (form !== null) {
     new FormSteps(form);
   }
+  // Third step institutions filtering
+  $('#first-button').on('click', function () {
+    let categories = $('.first-step');
+    let categoriesChecked = [];
+
+    for (i=0; i<categories.length; i++) {
+      if (categories[i].checked == true) {
+        categoriesChecked.push(categories[i].value);
+      }
+    }
+    $.ajax({
+      url: '/third_step_filter/',
+      type: "GET",
+      data: {
+        'categoriesChecked': categoriesChecked},
+      }).done(function (data) {
+        console.log(data);
+        let elem = $('#third-step');
+        elem.html(data);
+      }).fail(function (data) {
+        alert(data);
+    }).always(function () {
+      console.log("Połączenie wykonane poprawnie.")
+    });
+  });
 });

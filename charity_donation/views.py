@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -74,3 +75,16 @@ class UserProfile(View):
     def get(self, request):
         user = User.objects.get(pk=request.user.id)
         return render(request, 'user_profile.html', locals())
+
+
+def third_step_filter(request):
+    if request.method == 'GET':
+        categories = request.GET.get('categoriesChecked')
+        institutions = Institution.objects.all()
+    # if categories is not None:
+        data = []
+        # for value in categories:
+        #     data.append(institutions.filter(categories=value))
+        return JsonResponse()
+    # else:
+    #     return HttpResponse("Coś poszło nie tak :(")
