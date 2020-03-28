@@ -5,6 +5,7 @@ Website created for people who wants to get rid of things they don't need. It wa
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
+* [Sources](#Sources)
 
 ## General info
 It is a website which offer users to give their old things to organisations and charities who will redistribute it to the people in need. It provides several features:
