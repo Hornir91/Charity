@@ -4,7 +4,7 @@ Website created for people who wants to get rid of things they don't need. It wa
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [Setup](#setup)
+* [Requirements](#requirements)
 * [Sources](#Sources)
 
 ## General info
@@ -17,8 +17,8 @@ It is a website which offer users to give their old things to organisations and 
 * Javascript
 * PostgreSQL database
 
-## Setup
-To launch the project fork it and download required libraries in your IDE with command:
+## Requirements
+All required packages are mentioned in requirements.txt file. To install it run the following command:
 ```
 pip3 install -r requirements.txt
 ```
