@@ -260,18 +260,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
     for (i=0; i<categories.length; i++) {
       if (categories[i].checked == true) {
+
         categoriesChecked.push(categories[i].value);
       }
     }
     $.ajax({
       url: '/third_step_filter/',
       type: "GET",
+      traditional: true,
       data: {
         'categoriesChecked': categoriesChecked},
       }).done(function (data) {
-        console.log(data);
-        let elem = $('#third-step');
-        elem.html(data);
+        $.each(function (data) {
+          let elem = $('#third-step')
+        });
       }).fail(function (data) {
         alert(data);
     }).always(function () {

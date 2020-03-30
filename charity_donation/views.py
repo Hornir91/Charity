@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.core import serializers
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -79,12 +80,16 @@ class UserProfile(View):
 
 def third_step_filter(request):
     if request.method == 'GET':
-        categories = request.GET.get('categoriesChecked')
-        institutions = Institution.objects.all()
-    # if categories is not None:
-        data = []
-        # for value in categories:
-        #     data.append(institutions.filter(categories=value))
-        return JsonResponse()
-    # else:
-    #     return HttpResponse("Coś poszło nie tak :(")
+        categories = request.GET.getlist('categoriesChecked')
+        if categories:
+            final_data = []
+            data = Institution.objects.filter(categories__in=categories)
+            for obj in data:
+                if obj in final_data:
+                    continue
+                else:
+                    final_data.append(obj)
+            data_json = serializers.serialize('json', final_data)
+            return JsonResponse(data_json, safe=False)
+        else:
+            return HttpResponse("Coś poszło nie tak :(")
