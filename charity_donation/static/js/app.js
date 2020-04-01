@@ -271,9 +271,19 @@ document.addEventListener("DOMContentLoaded", function() {
       data: {
         'categoriesChecked': categoriesChecked},
       }).done(function (data) {
-        $.each(function (data) {
-          let elem = $('#third-step')
-        });
+        let parsed_data = JSON.parse(data);
+        let div = $('#third-step');
+        $.each(parsed_data, function (index, value) {
+          let newDiv = $('<div class="form-group form-group--checkbox"><label><input type="radio" name="organization" ' +
+              'value="old" /><span class="checkbox radio"></span><span class="description"><div class="title">Fundacja ' +
+              '“Bez domu”</div><div class="subtitle">\n' +
+              '                    Cel i misja: Pomoc dla osób nie posiadających miejsca\n' +
+              '                    zamieszkania\n' +
+              '                  </div></span></label></div>');
+          div.prepend(newDiv);
+          console.log(div);
+          console.log(value.fields.name);
+        })
       }).fail(function (data) {
         alert(data);
     }).always(function () {
