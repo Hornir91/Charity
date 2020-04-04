@@ -272,22 +272,26 @@ document.addEventListener("DOMContentLoaded", function() {
         'categoriesChecked': categoriesChecked},
       }).done(function (data) {
         let parsed_data = JSON.parse(data);
-        let div = $('#third-step');
-        $.each(parsed_data, function (index, value) {
+        let h3El = $('#third-h3');
+        $.each(parsed_data, function () {
           let newDiv = $('<div class="form-group form-group--checkbox"><label><input type="radio" name="organization" ' +
-              'value="old" /><span class="checkbox radio"></span><span class="description"><div class="title">Fundacja ' +
-              '“Bez domu”</div><div class="subtitle">\n' +
-              '                    Cel i misja: Pomoc dla osób nie posiadających miejsca\n' +
-              '                    zamieszkania\n' +
-              '                  </div></span></label></div>');
-          div.prepend(newDiv);
-          console.log(div);
-          console.log(value.fields.name);
+              'value="old" /><span class="checkbox radio"></span><span class="description"><div class="title">a</div><div class="subtitle">a\n' +
+              '</div></span></label></div>');
+          $(newDiv).find("div.title").text(this.fields.name);
+          $(newDiv).find("div.subtitle").text(this.fields.description);
+          h3El.after(newDiv);
         })
-      }).fail(function (data) {
-        alert(data);
+      }).fail(function () {
+        alert("Coś poszło nie tak :(");
     }).always(function () {
       console.log("Połączenie wykonane poprawnie.")
     });
   });
+
+  $("#fourth-button").on('click', function () {
+    let bags = $('input[name="bags"]').val();
+    let institution = $('input[organization]').val();
+    $('span#bags').html(bags + " worki rzeczy dla potrzebujących");
+    $('span#institution').html("Dla " + institution);
+  })
 });
