@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function() {
      * TODO: validation, send data to server
      */
     submit(e) {
-      e.preventDefault();
+
       this.currentStep++;
       this.updateForm();
     }
@@ -271,14 +271,18 @@ document.addEventListener("DOMContentLoaded", function() {
       data: {
         'categoriesChecked': categoriesChecked},
       }).done(function (data) {
-        let parsed_data = JSON.parse(data);
+        let parsedData = JSON.parse(data);
         let h3El = $('#third-h3');
-        $.each(parsed_data, function () {
+        $.each(parsedData, function () {
           let newDiv = $('<div class="form-group form-group--checkbox"><label><input type="radio" name="organization" ' +
               'value="old" /><span class="checkbox radio"></span><span class="description"><div class="title">a</div><div class="subtitle">a\n' +
               '</div></span></label></div>');
           $(newDiv).find("div.title").text(this.fields.name);
           $(newDiv).find("div.subtitle").text(this.fields.description);
+          $(newDiv).find("input[name='organization']").attr({
+            'value': this.pk,
+            'data-name': this.fields.name
+          });
           h3El.after(newDiv);
         })
       }).fail(function () {
@@ -290,8 +294,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
   $("#fourth-button").on('click', function () {
     let bags = $('input[name="bags"]').val();
-    let institution = $('input[organization]').val();
+    let institution = $('input[name="organization"]:checked').attr('data-name');
+    let address = $('input[name="address"]').val();
+    let city = $('input[name="city"]').val();
+    let postcode = $('input[name="postcode"]').val();
+    let phoneNumber = $('input[name="phone"]').val();
+    let shipmentDate = $('input[name="data"]').val();
+    let shipmentTime = $('input[name="time"]').val();
+    let moreInfo = $('textarea[name="more_info"]').val();
     $('span#bags').html(bags + " worki rzeczy dla potrzebujących");
     $('span#institution').html("Dla " + institution);
+    $('#first-column li:first-child').html(address);
+    $('#first-column li:nth-child(2)').html(city);
+    $('#first-column li:nth-child(3)').html(postcode);
+    $('#first-column li:nth-child(4)').html(phoneNumber);
+    $('#second-column li:first-child').html(shipmentDate);
+    $('#second-column li:nth-child(2)').html(shipmentTime);
+    $('#second-column li:nth-child(3)').html(moreInfo);
   })
 });

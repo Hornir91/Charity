@@ -54,7 +54,8 @@
       <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/5</div>
 
-        <form action="form-confirmation.html" method="post">
+        <form action="#" method="post">
+            {% csrf_token %}
           <!-- STEP 1: class .active is switching steps -->
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
@@ -181,7 +182,7 @@
               <div class="form-section form-section--columns">
                 <div class="form-section--column">
                   <h4>Adres odbioru:</h4>
-                  <ul>
+                  <ul id="first-column">
                     <li>Prosta 51</li>
                     <li>Warszawa</li>
                     <li>99-098</li>
@@ -191,7 +192,7 @@
 
                 <div class="form-section--column">
                   <h4>Termin odbioru:</h4>
-                  <ul>
+                  <ul id="second-column">
                     <li>13/12/2018</li>
                     <li>15:40</li>
                     <li>Brak uwag</li>
