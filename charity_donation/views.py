@@ -46,6 +46,9 @@ class AddDonation(LoginRequiredMixin, View):
                                            zip_code=zip_code, pick_up_date=pick_up_date, pick_up_time=pick_up_time,
                                            pick_up_comment=pick_up_comment, user_id=user_id,
                                            institution_id=institution_id)
+        categories = request.POST.getlist('categories')
+        donation.categories.add(*categories)
+
         return redirect(reverse_lazy('form-confirmation'))
 
 

@@ -1,28 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 <section id="user_profile">
-    <div>
-        <ul>
-            <li>
-                <div class="col">
-                    <h2>Nick: {{ user.username }}</h2>
-                    <h2>Imię: {{ user.first_name }}</h2>
-                    <h2>Nazwisko: {{ user.last_name }}</h2>
-                    <h2>Email: {{ user.email }}</h2>
-                </div>
-            </li>
-        </ul>
+
+    <div class="col">
+        <h2>Nick: {{ user.username }}</h2>
+        <h2>Imię: {{ user.first_name }}</h2>
+        <h2>Nazwisko: {{ user.last_name }}</h2>
+        <h2>Email: {{ user.email }}</h2>
     </div>
-    <div>
+
+    <div class="col">
         <ul><h1>Przekazane dary:</h1>
             {% for donation in donations %}
             <li>
-                <div class="col">
-                    <h3>Nazwa instytucji: {{ donation.institution.name }}</h3>
-                    <h3>Ilość przekazanych worków: {{ donation.quantity }}</h3>
-                    <h3>Kategorie przekazanych darów: {{ donation.categories }}</h3>
-                    <h3>Data odbioru: {{ donation.pick_up_date }}</h3>
-                    <h3>Godzina odbioru: {{ donation.pick_up_time }}</h3>
+                <div>
+                    <h3>Nazwa instytucji: {{ donation.institution.name }},</h3>
+                    <h3>Ilość przekazanych worków: {{ donation.quantity }},</h3>
+                    <h3>Kategorie przekazanych darów: {% for don in donation.categories.all %} {{ don.name }}, {% endfor %}</h3>
+                    <h3>Data odbioru: {{ donation.pick_up_date }},</h3>
+                    <h3>Godzina odbioru: {{ donation.pick_up_time }}.</h3>
                 </div>
             </li>
             {% endfor %}
