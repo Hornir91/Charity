@@ -234,8 +234,6 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 6;
       this.$step.parentElement.hidden = this.currentStep >= 6;
 
-      // TODO: get data from inputs and show them in summary
-
     }
 
     /**
@@ -253,12 +251,13 @@ document.addEventListener("DOMContentLoaded", function() {
   if (form !== null) {
     new FormSteps(form);
   }
+
   // Third step institutions filtering
   $('#first-button').on('click', function () {
     let categories = $('.first-step');
     let categoriesChecked = [];
 
-    for (i=0; i<categories.length; i++) {
+    for (let i=0; i<categories.length; i++) {
       if (categories[i].checked == true) {
 
         categoriesChecked.push(categories[i].value);
@@ -292,6 +291,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
+  // Last step details
   $("#fourth-button").on('click', function () {
     let bags = $('input[name="bags"]').val();
     let institution = $('input[name="organization"]:checked').attr('data-name');
@@ -311,5 +311,31 @@ document.addEventListener("DOMContentLoaded", function() {
     $('#second-column li:first-child').html(shipmentDate);
     $('#second-column li:nth-child(2)').html(shipmentTime);
     $('#second-column li:nth-child(3)').html(moreInfo);
-  })
+  });
+
+  // User-profile donation list event
+  let lastChildDonationCheck = $('.donation').find('.is_taken');
+  lastChildDonationCheck.each(function (index) {
+    $(this).change(function () {
+      $.ajax({
+      url: '/is_taken_change/',
+      type: 'GET',
+      traditional: true,
+      data: {
+        "checked_status": this.checked,
+        "donation_id": this.dataset.donationid
+      }}).done(function (data) {
+        let donationComplete = JSON.parse(data);
+        let parent = $("div [data-divdonationid=" + donationComplete[0].pk + "]");
+        if (parent.hasClass(".donation_complete")) {
+          parent.removeClass(".donation_complete")
+        } else {
+          parent.addClass("donation_complete")
+        }
+      }).fail(function (data) {
+        alert(data);
+      }).always(console.log("Connection completed"))
+    })
+  });
+
 });

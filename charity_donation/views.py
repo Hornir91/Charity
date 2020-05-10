@@ -120,3 +120,23 @@ def third_step_filter(request):
             return JsonResponse(data_json, safe=False)
         else:
             return HttpResponse("Coś poszło nie tak :(")
+
+
+def is_taken_change(request):
+    if request.method == "GET":
+        donation_change = request.GET.get('checked_status')
+        donation_id = request.GET.get('donation_id')
+        if donation_change == "false":
+            donation = Donation.objects.get(pk=donation_id)
+            donation.is_taken = True
+            donation.save()
+            donation_complete = serializers.serialize('json', [donation])
+            return JsonResponse(donation_complete, safe=False)
+        elif donation_change == "true":
+            donation = Donation.objects.get(pk=donation_id)
+            donation.is_taken = False
+            donation.save()
+            donation_complete = serializers.serialize('json', [donation])
+            return JsonResponse(donation_complete, safe=False)
+        else:
+            return HttpResponse("Coś poszło nie tak :(")

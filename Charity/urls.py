@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import path
 
 from charity_donation.views import LandingPage, AddDonation, Login, Register, Logout, UserProfile, third_step_filter, \
-    FormConfirmation
+    FormConfirmation, is_taken_change
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,5 +30,6 @@ urlpatterns = [
     path('logout/', Logout.as_view(), name='logout'),
     path('user_profile/', UserProfile.as_view(), name='user-profile'),
     path('third_step_filter/', third_step_filter, name='third-step-filter'),
-    path('form_confirmation/', FormConfirmation.as_view(), name='form-confirmation')
+    path('form_confirmation/', FormConfirmation.as_view(), name='form-confirmation'),
+    path('is_taken_change/', is_taken_change, name='is_taken_change')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
