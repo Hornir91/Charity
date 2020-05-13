@@ -20,7 +20,7 @@
                             <h3>Kategorie przekazanych darów: {% for don in donation.categories.all %} {{ don.name }}, {% endfor %}</h3>
                             <h3>Data odbioru: {{ donation.pick_up_date }},</h3>
                             <h3>Godzina odbioru: {{ donation.pick_up_time }}.</h3>
-                            <h3>Odebrany: <label><input type="checkbox" name="is_taken" data-donationid="{{ donation.id }}"  class="is_taken"></label></h3>
+                            <h3>Odebrany: <label><input type="checkbox" name="is_taken" data-donationid="{{ donation.id }}"  class="is_taken" checked=""></label></h3>
                         </div>
                     </li>
                 {% endif %}
@@ -29,13 +29,13 @@
             {% for donation in donations %}
                 {% if donation.is_taken is True %}
                     <li>
-                        <div class="donation" data-divdonationid="{{ donation.id }}">
+                        <div class="donation donation_complete" data-divdonationid="{{ donation.id }}">
                             <h3>Nazwa instytucji: {{ donation.institution.name }},</h3>
                             <h3>Ilość przekazanych worków: {{ donation.quantity }},</h3>
                             <h3>Kategorie przekazanych darów: {% for don in donation.categories.all %} {{ don.name }}, {% endfor %}</h3>
                             <h3>Data odbioru: {{ donation.pick_up_date }},</h3>
                             <h3>Godzina odbioru: {{ donation.pick_up_time }}.</h3>
-                            <h3>Odebrany: <label><input type="checkbox" name="is_taken" data-donationid="{{ donation.id }}"  class="is_taken"></label></h3>
+                            <h3>Odebrany <label hidden><input type="checkbox" name="is_taken" data-donationid="{{ donation.id }}" checked></label></h3>
                         </div>
                     </li>
                 {% endif %}

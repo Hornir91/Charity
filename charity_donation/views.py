@@ -128,15 +128,29 @@ def is_taken_change(request):
         donation_id = request.GET.get('donation_id')
         if donation_change == "false":
             donation = Donation.objects.get(pk=donation_id)
-            donation.is_taken = True
+            donation.is_taken = False
             donation.save()
             donation_complete = serializers.serialize('json', [donation])
             return JsonResponse(donation_complete, safe=False)
         elif donation_change == "true":
             donation = Donation.objects.get(pk=donation_id)
-            donation.is_taken = False
+            donation.is_taken = True
             donation.save()
             donation_complete = serializers.serialize('json', [donation])
             return JsonResponse(donation_complete, safe=False)
         else:
             return HttpResponse("Coś poszło nie tak :(")
+
+# TODO Edit user info and make a valid form for changing password
+
+
+class EditUser(View):
+
+    def get(self, request):
+        return render(request, "edit_user.html")
+
+    def post(self, request):
+        if "user_edit" in request.POST:
+            pass
+        elif "change_password" in request.POST:
+            pass

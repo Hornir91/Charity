@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="login-page">
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Imię
+                <input type="text" name="first-name" />
+            </label>
+        </div>
+        <div class="form-group">
+            <label>Nazwisko
+                <input type="text" name="last-name" />
+            </label>
+        </div>
+        <div class="form-group">
+            <label>E-mail
+                <input type="text" name="email" />
+            </label>
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="submit" name="user_edit" value="Edytuj" />
+            </label>
+        </div>
+    </form>
+    <br /><br />
+    <h3>Zmiana hasła</h3>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Stare hasło
+                <input type="text" name="old_password" />
+            </label>
+        </div>
+        <div class="form-group">
+            <label>Nowe hasło
+                <input type="text" name="new_password1" />
+            </label>
+        </div>
+        <div class="form-group">
+            <label>Powtórz nowe hasło
+                <input type="text" name="new_password2" />
+            </label>
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="submit" name="change_password" value="Zmień hasło" />
+            </label>
+        </div>
+    </form>
+</section>
+
+{% endblock %}

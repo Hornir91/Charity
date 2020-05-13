@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // User-profile donation list event
-  let lastChildDonationCheck = $('.donation').find('.is_taken');
+  let lastChildDonationCheck = $('.donation').find('input:checkbox');
   lastChildDonationCheck.each(function (index) {
     $(this).change(function () {
       $.ajax({
@@ -327,11 +327,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }}).done(function (data) {
         let donationComplete = JSON.parse(data);
         let parent = $("div [data-divdonationid=" + donationComplete[0].pk + "]");
-        if (parent.hasClass(".donation_complete")) {
-          parent.removeClass(".donation_complete")
-        } else {
-          parent.addClass("donation_complete")
-        }
+        parent.toggleClass("donation_complete")
       }).fail(function (data) {
         alert(data);
       }).always(console.log("Connection completed"))
