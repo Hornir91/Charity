@@ -151,6 +151,10 @@ class EditUser(View):
 
     def post(self, request):
         if "user_edit" in request.POST:
-            pass
+            user = User.objects.get(pk=request.user.id)
+            user.name = request.POST.get('name')
+            user.surname = request.POST.get('surname')
+            user.email = request.POST.get('email')
+            user.save()
         elif "change_password" in request.POST:
             pass

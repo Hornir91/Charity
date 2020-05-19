@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", function() {
     new FormSteps(form);
   }
 
-  // Third step institutions filtering
+  // AJAX call to get chosen institutions from step 1
   $('#first-button').on('click', function () {
     let categories = $('.first-step');
     let categoriesChecked = [];
@@ -291,7 +291,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  // Last step details
+  // Fills last-step form inputs with data from previous steps
   $("#fourth-button").on('click', function () {
     let bags = $('input[name="bags"]').val();
     let institution = $('input[name="organization"]:checked').attr('data-name');
@@ -314,6 +314,8 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // User-profile donation list event
+  // This AJAX make GET call to change "is_taken" value to True and moves whole <li> to <ul id="taken">
+  // (completed donations)
   let lastChildDonationCheck = $('.donation').find('input:checkbox');
   lastChildDonationCheck.each(function (index) {
     $(this).change(function () {
@@ -327,7 +329,9 @@ document.addEventListener("DOMContentLoaded", function() {
       }}).done(function (data) {
         let donationComplete = JSON.parse(data);
         let parent = $("div [data-divdonationid=" + donationComplete[0].pk + "]");
-        parent.toggleClass("donation_complete")
+        parent.toggleClass("donation_complete");
+        parent.find('label').hide();
+        parent.appendTo($('#taken'));
       }).fail(function (data) {
         alert(data);
       }).always(console.log("Connection completed"))
