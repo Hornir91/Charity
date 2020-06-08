@@ -252,7 +252,9 @@ document.addEventListener("DOMContentLoaded", function() {
     new FormSteps(form);
   }
 
-  // AJAX call to get chosen institutions from step 1
+  /**
+   * AJAX call to get chosen institutions from step 1
+   */
   $('#first-button').on('click', function () {
     let categories = $('.first-step');
     let categoriesChecked = [];
@@ -291,7 +293,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  // Fills last-step form inputs with data from previous steps
+  /**
+   * Fills last-step form inputs with data from previous steps
+   */
   $("#fourth-button").on('click', function () {
     let bags = $('input[name="bags"]').val();
     let institution = $('input[name="organization"]:checked').attr('data-name');
@@ -313,9 +317,11 @@ document.addEventListener("DOMContentLoaded", function() {
     $('#second-column li:nth-child(3)').html(moreInfo);
   });
 
-  // User-profile donation list event
-  // This AJAX make GET call to change "is_taken" value to True and moves whole <li> to <ul id="taken">
-  // (completed donations)
+  /**
+   * User-profile donation list event
+   * This AJAX make GET call to change "is_taken" value to True and moves whole <li> to <ul id="taken">
+   * (completed donations)
+   */
   let lastChildDonationCheck = $('.donation').find('input:checkbox');
   lastChildDonationCheck.each(function (index) {
     $(this).change(function () {
@@ -337,5 +343,27 @@ document.addEventListener("DOMContentLoaded", function() {
       }).always(console.log("Connection completed"))
     })
   });
+
+  /**
+   * Password requirement for edit user informations
+   */
+  $('#user_edit').on('click', function (event) {
+    event.preventDefault();
+    $('.pop-up').css('display', 'block');
+    $('.pop-up-container').css('display', 'block');
+  });
+
+  function edit_user_confirm() {
+    $.post("/edit_user/", function () {
+      let conf = '';
+    });
+
+  }
+
+  function edit_user_cancel() {
+    $('button[name="edit_user_cancel"]').parent().css('display', 'none');
+
+  }
+
 
 });

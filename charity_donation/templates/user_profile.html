@@ -29,7 +29,7 @@
             <ul id="taken">
                 {% for donation in donations %}
                     {% if donation.is_taken is True %}
-                        <div class="donation donation_complete" data-divdonationid="{{ donation.id }}">
+                        <div class="donation donation-complete" data-divdonationid="{{ donation.id }}">
                             <h3>Nazwa instytucji: {{ donation.institution.name }},</h3>
                             <h3>Ilość przekazanych worków: {{ donation.quantity }},</h3>
                             <h3>Kategorie przekazanych darów: {% for don in donation.categories.all %} {{ don.name }}, {% endfor %}</h3>

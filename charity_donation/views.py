@@ -2,7 +2,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core import serializers
-from django.http import JsonResponse, HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import JsonResponse, HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -85,7 +86,10 @@ class Logout(View):
 class Register(View):
 
     def get(self, request):
-        return render(request, 'register.html')
+        if request.user.is_authenticated:
+            return redirect(reverse_lazy('landing-page'))
+        else:
+            return render(request, 'register.html')
 
     def post(self, request):
         name = request.POST.get('name')
@@ -97,7 +101,8 @@ class Register(View):
         return redirect(reverse_lazy('login'))
 
 
-class UserProfile(View):
+class UserProfile(LoginRequiredMixin, View):
+    login_url = '/login/#login'
 
     def get(self, request):
         user = User.objects.get(pk=request.user.id)
@@ -144,17 +149,21 @@ def is_taken_change(request):
 # TODO Edit user info and make a valid form for changing password
 
 
-class EditUser(View):
+class EditUser(LoginRequiredMixin, View):
+    login_url = '/login/#login'
 
     def get(self, request):
         return render(request, "edit_user.html")
 
     def post(self, request):
-        if "user_edit" in request.POST:
+        if "edit_user_confirm" in request.POST:
             user = User.objects.get(pk=request.user.id)
             user.name = request.POST.get('name')
             user.surname = request.POST.get('surname')
             user.email = request.POST.get('email')
             user.save()
+            return HttpResponse("Pomyślnie zmieniono dane")
         elif "change_password" in request.POST:
             pass
+        else:
+            raise Http404

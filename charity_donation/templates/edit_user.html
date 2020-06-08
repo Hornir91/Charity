@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <section class="login-page">
-    <h3 class="h3_font">Edytuj dane</h3>
+    <h3 class="h3-font">Edytuj dane</h3>
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
@@ -21,12 +21,20 @@
         </div>
         <div class="form-group">
             <label>
-                <input type="submit" name="user_edit" value="Edytuj" />
+                <input type="submit" id="user_edit" name="user_edit" value="Edytuj" />
             </label>
+        </div>
+        <div class="pop-up-container">
+            <div class="pop-up">
+                <div class="pop-up-text">Edycja danych wymaga podania hasła.</div>
+                <label><input type="password" name="edit_pwd"></label>
+                <button name="edit_user_confirm" onclick="edit_user_confirm()">Gotowe</button>
+                <button name="edit_user_cancel" onclick="edit_user_cancel()">Anuluj</button>
+            </div>
         </div>
     </form>
     <br /><br />
-    <h3 class="h3_font">Zmiana hasła</h3>
+    <h3 class="h3-font">Zmiana hasła</h3>
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
