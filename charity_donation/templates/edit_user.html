@@ -28,11 +28,16 @@
             <div class="pop-up">
                 <div class="pop-up-text">Edycja danych wymaga podania hasła.</div>
                 <label><input type="password" name="edit_pwd"></label>
-                <button name="edit_user_confirm" onclick="edit_user_confirm()">Gotowe</button>
-                <button name="edit_user_cancel" onclick="edit_user_cancel()">Anuluj</button>
+                <button name="edit_user_confirm">Gotowe</button>
+                <button name="edit_user_cancel">Anuluj</button>
             </div>
         </div>
     </form>
+    {% if response %}
+        <div id="success_message" class="success-message">
+            <span>{{ response }}</span>
+        </div>
+    {% endif %}
     <br /><br />
     <h3 class="h3-font">Zmiana hasła</h3>
     <form method="post">

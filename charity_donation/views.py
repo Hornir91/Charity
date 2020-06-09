@@ -2,10 +2,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core import serializers
-from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse, HttpResponse, Http404
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import View
 
 from charity_donation.models import Donation, Institution, Category
@@ -158,11 +157,17 @@ class EditUser(LoginRequiredMixin, View):
     def post(self, request):
         if "edit_user_confirm" in request.POST:
             user = User.objects.get(pk=request.user.id)
-            user.name = request.POST.get('name')
-            user.surname = request.POST.get('surname')
-            user.email = request.POST.get('email')
-            user.save()
-            return HttpResponse("Pomyślnie zmieniono dane")
+            if user.check_password(request.POST.get('edit_pwd')):
+                user.first_name = request.POST.get('first-name')
+                user.last_name = request.POST.get('last-name')
+                user.email = request.POST.get('email')
+                user.save()
+                response = "Udało się zmienić dane!"
+                anchor = "success_message"
+                return render(request, 'edit_user.html', {'response': response, 'anchor': anchor})
+            else:
+                return HttpResponse("Podano błędne hasło")
+
         elif "change_password" in request.POST:
             pass
         else:

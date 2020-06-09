@@ -353,17 +353,18 @@ document.addEventListener("DOMContentLoaded", function() {
     $('.pop-up-container').css('display', 'block');
   });
 
-  function edit_user_confirm() {
-    $.post("/edit_user/", function () {
-      let conf = '';
-    });
-
-  }
-
-  function edit_user_cancel() {
-    $('button[name="edit_user_cancel"]').parent().css('display', 'none');
-
-  }
+  // function edit_user_confirm() {
+  //   $.post("edit_user/", function () {
+  //     let conf = '';
+  //   });
+  //
+  // }
+  //
+  // function edit_user_cancel(obj) {
+  //   obj.preventDefault();
+  //   return console.log($('button[name="edit_user_cancel"]').parent());
+  //
+  // }
 
 
 });
