@@ -39,30 +39,10 @@
         </div>
     {% endif %}
     <br /><br />
-    <h3 class="h3-font">Zmiana hasła</h3>
-    <form method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <label>
-                <input type="text" name="old_password" placeholder="Stare hasło" />
-            </label>
-        </div>
-        <div class="form-group">
-            <label>
-                <input type="text" name="new_password1" placeholder="Nowe hasło" />
-            </label>
-        </div>
-        <div class="form-group">
-            <label>
-                <input type="text" name="new_password2" placeholder="Powtórz nowe hasło" />
-            </label>
-        </div>
-        <div class="form-group">
-            <label>
-                <input type="submit" name="change_password" value="Zmień hasło" />
-            </label>
-        </div>
-    </form>
+    <h3 class="h3-font">Zmiana hasła<br /><br /><a href="{% url 'change-password' %}">KLIK</a></h3>
+    {% if title %}
+        <h3 class="h3-font">{{ title }}</h3>
+    {% endif %}
 </section>
 
 {% endblock %}

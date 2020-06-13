@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse, Http404
 from django.shortcuts import render, redirect
@@ -167,8 +169,11 @@ class EditUser(LoginRequiredMixin, View):
                 return render(request, 'edit_user.html', {'response': response, 'anchor': anchor})
             else:
                 return HttpResponse("Podano błędne hasło")
-
-        elif "change_password" in request.POST:
-            pass
         else:
             raise Http404
+
+
+class ChangePassword(PasswordChangeView):
+    template_name = 'change_password.html'
+    success_url = reverse_lazy('edit-user')
+

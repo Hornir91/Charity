@@ -352,19 +352,4 @@ document.addEventListener("DOMContentLoaded", function() {
     $('.pop-up').css('display', 'block');
     $('.pop-up-container').css('display', 'block');
   });
-
-  // function edit_user_confirm() {
-  //   $.post("edit_user/", function () {
-  //     let conf = '';
-  //   });
-  //
-  // }
-  //
-  // function edit_user_cancel(obj) {
-  //   obj.preventDefault();
-  //   return console.log($('button[name="edit_user_cancel"]').parent());
-  //
-  // }
-
-
 });
